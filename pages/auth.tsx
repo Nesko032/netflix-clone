@@ -1,7 +1,12 @@
 import axios from "axios";
+
 import { useCallback, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+
 import Input from "@/components/input";
 
 const Auth = () => {
@@ -103,7 +108,27 @@ const Auth = () => {
                             {variant === "signIn" ? "Log in" : "Register"}
                         </button>
 
-                        <p className="text-neutral-500 mt-12">
+                        <div className="flex flex-grow items-center gap-4 mt-8 justify-center">
+                            <div
+                                className="w-12 h-12 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-70 transition"
+                                onClick={() =>
+                                    signIn("google", { callbackUrl: "/" })
+                                }
+                            >
+                                <FcGoogle size={30} />
+                            </div>
+
+                            <div
+                                className="w-12 h-12 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-70 transition"
+                                onClick={() =>
+                                    signIn("github", { callbackUrl: "/" })
+                                }
+                            >
+                                <FaGithub size={30} />
+                            </div>
+                        </div>
+
+                        <p className="text-neutral-500 mt-10">
                             {variant === "signIn"
                                 ? "First time using Netflix?"
                                 : "Already have an account?"}
