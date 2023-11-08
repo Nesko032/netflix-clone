@@ -6,8 +6,6 @@ import { FaGithub } from "react-icons/fa";
 
 import { signIn } from "next-auth/react";
 
-import Input from "@/components/input";
-
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
