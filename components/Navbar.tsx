@@ -1,9 +1,9 @@
-import { useState, useCallback, useEffect } from "react";
-import { BsChevronDown, BsSearch, BsBell } from "react-icons/bs";
+import React, { useCallback, useEffect, useState } from 'react';
+import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-import NavbarItem from "./NavbarItem";
-import MobileMenu from "./MobileMenu";
-import AccountMenu from "./AccountMenu";
+import AccountMenu from '@/components/AccountMenu';
+import MobileMenu from '@/components/MobileMenu';
+import NavbarItem from '@/components/NavbarItem';
 
 const TOP_OFFSET = 66;
 
@@ -14,85 +14,64 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log(window.scrollY)
       if (window.scrollY >= TOP_OFFSET) {
-        setShowBackground(true);
+        setShowBackground(true)
       } else {
-        setShowBackground(false);
+        setShowBackground(false)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const toggleMobileMenu = useCallback(() => {
-    setShowMobileMenu((current) => !current);
+      window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
   }, []);
 
+  const toggleMobileMenu = useCallback(() => {
+    setShowMobileMenu((current) => !current);
+  }, []);
+
   return (
-    <>
-      <nav className="fixed z-40 w-full">
-        <div
-          className={`flex flex-row items-center px-4 py-6 transition duration-500 md:px-16 ${
-            showBackground ? "bg-zinc-900 bg-opacity-90" : " "
-          }`}
-        >
-          <img className="h-4 lg:h-7" src="/images/logo.png" alt="" />
-
-          <div className="ml-8 hidden flex-row gap-7 lg:flex">
-            <NavbarItem label="Home" />
-            <NavbarItem label="Series" />
-            <NavbarItem label="Film" />
-            <NavbarItem label="New & Popular" />
-            <NavbarItem label="My List" />
-            <NavbarItem label="Browse by languages" />
+    <nav className="w-full fixed z-40">
+      <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
+        <img src="/images/logo.png" className="h-4 lg:h-7" alt="Logo" />
+        <div className="flex-row ml-8 gap-7 hidden lg:flex">
+          <NavbarItem label="Home" active />
+          <NavbarItem label="Series" />
+          <NavbarItem label="Films" />
+          <NavbarItem label="New & Popular" />
+          <NavbarItem label="My List" />
+          <NavbarItem label="Browse by Languages" />
+        </div>
+        <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
+          <p className="text-white text-sm">Browse</p>
+          <ChevronDownIcon className={`w-4 text-white fill-white transition ${showMobileMenu ? 'rotate-180' : 'rotate-0'}`} />
+          <MobileMenu visible={showMobileMenu} />
+        </div>
+        <div className="flex flex-row ml-auto gap-7 items-center">
+          <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
+            <MagnifyingGlassIcon className="w-6" />
           </div>
-
-          <div
-            className="relative ml-8 flex cursor-pointer flex-row items-center gap-2 lg:hidden"
-            onClick={toggleMobileMenu}
-          >
-            <p className="text-sm text-white">Browse</p>
-            <BsChevronDown
-              className={`text-white transition ${
-                showMobileMenu ? "rotate-180" : "rotate-0"
-              }`}
-            />
-            <MobileMenu visible={showMobileMenu} />
+          <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
+            <BellIcon className="w-6" />
           </div>
-          <div className="ml-auto flex flex-row items-center gap-7">
-            <div className="cursor-pointer text-gray-200 transition hover:text-gray-300">
-              <BsSearch />
+          <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
+            <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+              <img src="/images/default-blue.png" alt="" />
             </div>
-            <div className="cursor-pointer text-gray-200 transition hover:text-gray-300">
-              <BsBell />
-            </div>
-            <div
-              className="relative flex cursor-pointer flex-row items-center gap-2"
-              onClick={toggleAccountMenu}
-            >
-              <div className="h-6 w-6 overflow-hidden rounded-md lg:h-10 lg:w-10">
-                <img src="/images/default-red.png" alt="" />
-              </div>
-              <BsChevronDown
-                className={`text-white transition ${
-                  showAccountMenu ? "rotate-180" : "rotate-0"
-                }`}
-              />
-              <AccountMenu visible={showAccountMenu} />
-            </div>
+            <ChevronDownIcon className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
+            <AccountMenu visible={showAccountMenu} />
           </div>
         </div>
-      </nav>
-    </>
-  );
-};
+      </div>
+    </nav>
+  )
+}
 
 export default Navbar;

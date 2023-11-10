@@ -1,7 +1,6 @@
-import React from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
-
-import { useRouter } from "next/router";
+import React from 'react';
+import { PlayIcon } from '@heroicons/react/24/solid';
+import { useRouter } from 'next/router';
 
 interface PlayButtonProps {
   movieId: string;
@@ -11,16 +10,27 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
   const router = useRouter();
 
   return (
-    <>
-      <button
-        className="flex w-auto flex-row items-center rounded-md bg-white px-2 py-1 text-xs font-semibold transition hover:bg-neutral-300 md:px-4 md:py-2 lg:text-lg"
-        onClick={() => router.push(`/watch/${movieId}`)}
+    <button 
+      onClick={() => router.push(`/watch/${movieId}`)}
+      className="
+        bg-white 
+        rounded-md 
+        py-1 md:py-2 
+        px-2 md:px-4
+        w-auto 
+        text-xs lg:text-lg 
+        font-semibold
+        flex
+        flex-row
+        items-center
+        hover:bg-neutral-300
+        transition
+        "
       >
-        <AiFillPlayCircle className="mr-2" size={20} />
+        <PlayIcon className="w-4 md:w-7 text-black mr-1" />
         Play
-      </button>
-    </>
+    </button>
   );
-};
+}
 
 export default PlayButton;
