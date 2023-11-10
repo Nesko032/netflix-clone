@@ -1,8 +1,12 @@
 import React from "react";
+import { AiFillPlayCircle } from "react-icons/ai";
+import { BiChevronDown } from "react-icons/bi";
+
 import { Router, useRouter } from "next/router";
 
-import { AiFillPlayCircle } from "react-icons/ai";
 import FavoriteButton from "./FavoriteButton";
+
+import useInfoModal from "@/hooks/useInfoModal";
 
 interface MovieCardProps {
   data: Record<string, any>;
@@ -10,6 +14,7 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
+  const { openModal } = useInfoModal();
 
   return (
     <>
@@ -34,6 +39,15 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
                 <AiFillPlayCircle size={40} />
               </div>
               <FavoriteButton movieId={data?.id} />
+              <div
+                className="group/item ml-auto flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 border-white transition hover:border-neutral-300 lg:h-10 lg:w-10"
+                onClick={() => openModal(data?.id)}
+              >
+                <BiChevronDown
+                  className="text-white group-hover/item:text-neutral-300"
+                  size={30}
+                />
+              </div>
             </div>
 
             <p className="mt-4 font-semibold text-red-600">
