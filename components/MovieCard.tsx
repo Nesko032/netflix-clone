@@ -1,6 +1,7 @@
 import React from "react";
 
 import { AiFillPlayCircle } from "react-icons/ai";
+import FavoriteButton from "./FavoriteButton";
 
 interface MovieCardProps {
   data: Record<string, any>;
@@ -29,6 +30,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
               >
                 <AiFillPlayCircle size={40} />
               </div>
+              <FavoriteButton movieId={data?.id} />
             </div>
 
             <p className="mt-4 font-semibold text-red-600">
