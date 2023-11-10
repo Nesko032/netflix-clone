@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import fetcher from "@/lib/fetcher";
+import fetcher from "@/libs/fetcher";
 
 // This hook able to imagine similar like Redux
 const useCurrentUser = () => {
